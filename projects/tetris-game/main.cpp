@@ -80,13 +80,13 @@ int main()
 	system("mode con cols=80 lines=30");
 	system("title 俄罗斯方块");
 
-	// 设置控制台字体（如果支持）
+	// 设置控制台字体
 	system("chcp 65001 > nul"); // 设置UTF-8编码
 
 	// 初始化随机数种子
 	srand(static_cast<unsigned int>(time(nullptr)));
 
-	// Create Screen Buffer - 只定义一次！
+	// Create Screen Buffer 
 	wchar_t* screen = new wchar_t[nScreenWidth * nScreenHeight];
 	for (int i = 0; i < nScreenWidth * nScreenHeight; i++) screen[i] = L' ';
 	HANDLE hConsole = CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL);
@@ -128,7 +128,7 @@ int main()
 	while (!bGameOver) // Main Loop
 	{
 		// Timing =======================
-		this_thread::sleep_for(milliseconds(50)); // 修复：使用 milliseconds 而不是 50ms
+		this_thread::sleep_for(milliseconds(50)); 
 		nSpeedCount++;
 		bForceDown = (nSpeedCount == nSpeed);
 
@@ -223,7 +223,7 @@ int main()
 				if (tetromino[nCurrentPiece][Rotate(px, py, nCurrentRotation)] != L'.')
 					screen[(nCurrentY + py + 2) * nScreenWidth + (nCurrentX + px + 2)] = nCurrentPiece + 65;
 
-		// Draw Score - 安全版本
+		// Draw Score 
 		wchar_t scoreBuffer[32];
 		swprintf_s(scoreBuffer, 32, L"SCORE: %8d", nScore);
 		for (int i = 0; i < 32 && scoreBuffer[i] != L'\0'; i++) {
@@ -233,7 +233,7 @@ int main()
 			}
 		}
 
-		// 绘制下一个方块预览 - 安全版本
+		// 绘制下一个方块预览 
 		const wchar_t* nextText = L"NEXT:";
 		for (int i = 0; i < 5; i++) {
 			int pos = 4 * nScreenWidth + nFieldWidth + 6 + i;
@@ -246,14 +246,14 @@ int main()
 		{
 			// Display Frame (cheekily to draw lines)
 			WriteConsoleOutputCharacter(hConsole, screen, nScreenWidth * nScreenHeight, { 0,0 }, &dwBytesWritten);
-			this_thread::sleep_for(milliseconds(400)); // 修复：使用 milliseconds
+			this_thread::sleep_for(milliseconds(400)); 
 
 			for (auto& v : vLines)
 				for (int px = 1; px < nFieldWidth - 1; px++)
 				{
 					for (int py = v; py > 0; py--)
 						pField[py * nFieldWidth + px] = pField[(py - 1) * nFieldWidth + px];
-					pField[0 * nFieldWidth + px] = 0; // 修复：正确的数组索引
+					pField[0 * nFieldWidth + px] = 0; 
 				}
 
 			vLines.clear();
