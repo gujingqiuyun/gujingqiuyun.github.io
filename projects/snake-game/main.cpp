@@ -1,4 +1,21 @@
-﻿#include <iostream>
+﻿/*
+ * 贪吃蛇游戏 - 基于 One Lone Coder 代码的修改版本
+ * 
+ * 原始代码版权: Copyright OneLoneCoder.com
+ * 原始代码来源: hhttps://github.com/OneLoneCoder/Javidx9/blob/master/SimplyCode/OneLoneCoder_Snake.cpp
+ * 原始许可证: GNU General Public License v3.0
+ * 
+ * 修改者: [gujingqiuyun]
+ * 修改内容:
+ * - 改进了控制方式（方向键控制）
+ * - 添加了防反向移动逻辑
+ * - 改进了边框绘制
+ * - 添加了食物位置边界检查
+ * - 更新了显示信息
+ */
+
+
+#include <iostream>
 #include <list>
 #include <thread>
 using namespace std;
